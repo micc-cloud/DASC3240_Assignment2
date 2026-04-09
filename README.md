@@ -1,6 +1,6 @@
 # Assignment II: Group C
 # Group member list
-- xxxx xxxx (Leader & Owner)
+- 20964379 Lam Ching Yin (Leader & Owner)
 - xxxx xxxx
 - xxxx xxxx
 - xxxx xxxx
