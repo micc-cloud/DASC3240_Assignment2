@@ -1,7 +1,7 @@
 # Assignment II: Group C
 # Group member list
 - 20964379 Lam Ching Yin (Leader & Owner)
-- xxxx xxxx
+- 21335771 Mirja Suvi Wulff
 - xxxx xxxx
 - xxxx xxxx
 - xxxx xxxx
