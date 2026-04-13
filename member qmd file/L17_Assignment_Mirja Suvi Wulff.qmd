@@ -102,6 +102,8 @@ I chose an interactive scatter plot of bill length vs. bill depth, coloured by s
 
 -   With 344 data points, some overlapping occurs in dense areas even with transparency.
 -   The interactive tooltip can sometimes feel cluttered when many points overlap.
+
+I also created a second interactive plot: a box plot of body mass by species and sex. This plot lets readers compare distributions by toggling sex groups on/off via the legend.
 :::
 
 Note: At least one plot is required, but multiple plots are allowed
@@ -113,7 +115,9 @@ Note: At least one plot is required, but multiple plots are allowed
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+**Plot 1 (Scatter plot):** The purpose is to show that the three penguin species can be distinguished by their bill shape. Adelie penguins have short but deep bills, Gentoo penguins have long but shallow bills, and Chinstrap penguins have medium-to-long bills with moderate depth. The interactivity allows readers to hover over individual points to verify which species each point belongs to.
+
+**Plot 2 (Box plot):** The purpose is to show the differences in body mass across species and between sexes. Gentoo penguins are clearly the heaviest, and within each species, males tend to be heavier than females. The interactivity lets readers toggle male/female groups to directly compare sex-based differences.
 :::
 
 Note: If you want to specify setting for a code chunk, you can use `#|` for each option (for example, `#| echo: true`). Rmarkdown code chunk still works (for example, `{r echo = true}`), but Quarto style is recommended.
@@ -151,6 +155,33 @@ g1 <- ggplot(penguins_clean,
 
 #Convert to interactive plotly figure
 ggplotly(g1)
+```
+
+```{r}
+#| echo: true
+
+#Plot 2: Interactive box plot of body mass by species and sex
+
+#Remove rows with missing values for the variables we need
+penguins_mass <- penguins %>%
+  drop_na(body_mass_g, species, sex)
+
+#Create ggplot box plot: body mass by species, filled by sex
+g2 <- ggplot(penguins_mass,
+             aes(x = species, y = body_mass_g, fill = sex)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(aes(color = sex),
+              position = position_jitterdodge(jitter.width = 0.2),
+              alpha = 0.4, size = 1.5) +
+  labs(title = "Body Mass by Species and Sex",
+       x = "Species",
+       y = "Body Mass (g)",
+       fill = "Sex",
+       color = "Sex") +
+  NULL
+
+#Convert to interactive plotly figure
+ggplotly(g2)
 ```
 
 ### Animation using `gganimate`
