@@ -1,6 +1,6 @@
 ---
 title: "Assignment II: Group C"
-author: "Lam Ching Yin"
+author: "Chan Chi Him"
 format: 
   html:
     toc: true
@@ -14,14 +14,14 @@ execute:
 
 # Name
 
-[**Name**]{style="color:red"}**: Lam Ching Yin**
+[**Name**]{style="color:red"}**: XXXXXX**
 
 # Generative AI declaration
 
 Students may use generative AI tools during assignment, for example, to check and improve code, provided that the content is original and reflects the student's own contributions. If generative AI is used, students must declare its use in the box below. An example statement is: “*During the assignment, I used \[XXXX\] to \[XXXX\]. I subsequently reviewed and edited the code and take(s) full responsibility for the final version of the code.”*
 
 ::: callout
-*During the assignment, I used \[XXXX\] to \[XXXX\]. I subsequently reviewed and edited the code and take(s) full responsibility for the final version of the code.*
+xxxxxxxxxxxxxx
 :::
 
 # Dataset
@@ -53,7 +53,7 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 ::: callout
 ### Your answer is here
 
--   `ggplot2::msleep`
+xxxxxxxxxxxxxx
 :::
 
 ### Introduction
@@ -62,25 +62,11 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 [What is the dataset about? What variables are included in the data? How was the data taken/measured?]{style="color:darkred; font-weight:bold;"}
 :::
 
-:::: callout
+::: callout
 ### Your answer is here
 
-::: callout
-The `msleep` (Mammalian Sleep) dataset contains the sleep habits and physiological characteristics of **83 different species of mammals**. It is primarily used to explore the relationship between an animal's body weight, brain weight, and diet relative to how much sleep they require.
-
-The data set contains the following attribute: name, genus, vore, order, conservation, sleep_total, sleep_rem, sleep_cycle. awake. brainwt(brain weight), bodywt(body weight).
-
-The data in `msleep` is a **compiled dataset**, meaning it wasn't collected in a single experiment. Instead, it was aggregated from various primary research sources.
-
-**Sleep Data:** These values were typically measured using **Electroencephalography (EEG)** in laboratory settings to distinguish between REM and non-REM sleep cycles.
-
-**Weights:** Brain and body weights were recorded from anatomical studies and biological surveys.
-
-**Compilation:** Savage and West updated the 1976 Allison and Cicchetti data by cross-referencing newer literature to fill in gaps and add more species
-
-Additional variables order, conservation status and vore were added from wikipedia.
+xxxxxxxxxxxxxx
 :::
-::::
 
 ### Interactive plot(s) using `plotly`
 
@@ -110,21 +96,10 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 
 ```{r}
 #| echo: true
-library(ggplot2)
-
-# View the first 6 rows
-head(msleep)
-
-# Get a summary of the statistics
-summary(msleep)
-
-# Check the data types of each column
-str(msleep)
+# YOUR CODE HERE
+# xxxxx
 ```
-```{r}
-#| echo: true
 
-```
 ### Animation using `gganimate`
 
 ::: callout-important
@@ -150,5 +125,6 @@ xxxxxxxxxxxxxx
 :::
 
 ```{r}
-
+# YOUR CODE HERE
+# xxxxx
 ```
