@@ -145,12 +145,12 @@ penguins_clean <- penguins %>%
 
 #Create ggplot scatter plot: bill length vs. bill depth, coloured by species
 g1 <- ggplot(penguins_clean,
-             aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + #Declaring x and y variable and the colour separation
+             aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + #Declaring x and y variable and the colour separation
   geom_point(alpha = 0.7, size = 2) +
   labs(title = "Penguin Bill Shape by Species",
        x = "Bill Length (mm)",
        y = "Bill Depth (mm)",
-       color = "Species") +
+       colour = "Species") +
   NULL
 
 #Convert to interactive plotly figure
@@ -170,14 +170,14 @@ penguins_mass <- penguins %>%
 g2 <- ggplot(penguins_mass,
              aes(x = species, y = body_mass_g, fill = sex)) +
   geom_boxplot(alpha = 0.7, outlier.shape = NA) +
-  geom_jitter(aes(color = sex),
+  geom_jitter(aes(colour = sex),
               position = position_jitterdodge(jitter.width = 0.2),
               alpha = 0.4, size = 1.5) +
   labs(title = "Body Mass by Species and Sex",
        x = "Species",
        y = "Body Mass (g)",
        fill = "Sex",
-       color = "Sex") +
+       colour = "Sex") +
   NULL
 
 #Convert to interactive plotly figure
