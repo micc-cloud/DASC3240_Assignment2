@@ -90,7 +90,18 @@ The measurements were taken during field work where researchers physically captu
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+I chose an interactive scatter plot of bill length vs. bill depth, coloured by species, using `ggplotly()`. Scatter plots are ideal for showing the relationship between two continuous variables and can reveal clusters or correlations in the data.
+
+**Strengths:**
+
+-   The hover feature allows readers to inspect individual penguin measurements (species, bill length, bill depth), which is not possible in a static plot.
+-   Clicking legend entries lets readers isolate one species at a time, making it easy to compare.
+-   The plot clearly shows that the three species form distinct clusters in bill shapes i.e. length and depth.
+
+**Weaknesses:**
+
+-   With 344 data points, some overlapping occurs in dense areas even with transparency.
+-   The interactive tooltip can sometimes feel cluttered when many points overlap.
 :::
 
 Note: At least one plot is required, but multiple plots are allowed
@@ -109,8 +120,14 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 
 ```{r}
 #| echo: true
-# YOUR CODE HERE
-# xxxxx
+# Load libraries
+library(tidyverse); packageVersion("tidyverse")
+library(plotly); packageVersion("plotly")
+library(palmerpenguins); packageVersion("palmerpenguins")
+
+# Load and check the data
+data(penguins)
+head(penguins)
 ```
 
 ### Animation using `gganimate`
