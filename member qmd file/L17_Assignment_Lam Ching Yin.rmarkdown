@@ -284,3 +284,4 @@ animate(bubble_anim, fps = 20, duration = 16, width = 800, height = 600)
 ```
 
 From our facetted graphs based on diet type, it is clear that although the fundamental slope of the brain-body scaling does not vary for all types of diets, unique ecological niches lead to certain offsets. For example, omnivores and carnivores have a tendency to develop brains with relatively higher mass than others, whereas insectivores tend to have the most intense periods of sleep. At the same time, herbivores have shorter durations of sleep when body mass is large.
+
