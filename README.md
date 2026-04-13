@@ -1,8 +1,8 @@
 # Assignment II: Group C
 # Group member list
-- xxxx xxxx (Leader & Owner)
-- xxxx xxxx
-- xxxx xxxx
+- 20964379 Lam Ching Yin (Leader & Owner)
+- 21335771 Mirja Suvi Wulff
+- 21057381 Xu Zijian
 - xxxx xxxx
 - xxxx xxxx
 # Dataset

@@ -14,14 +14,22 @@ execute:
 
 # Name
 
+<<<<<<< HEAD
 [**Name**]{style="color:red"}**: Lam Ching Yin**
+=======
+[**Name**]{style="color:red"}**: XXXXXX**
+>>>>>>> 67e3a2621db2e7eba36e1e0ecdc095107c50b0de
 
 # Generative AI declaration
 
 Students may use generative AI tools during assignment, for example, to check and improve code, provided that the content is original and reflects the student's own contributions. If generative AI is used, students must declare its use in the box below. An example statement is: “*During the assignment, I used \[XXXX\] to \[XXXX\]. I subsequently reviewed and edited the code and take(s) full responsibility for the final version of the code.”*
 
 ::: callout
+<<<<<<< HEAD
 *During the assignment, I used \[XXXX\] to \[XXXX\]. I subsequently reviewed and edited the code and take(s) full responsibility for the final version of the code.*
+=======
+xxxxxxxxxxxxxx
+>>>>>>> 67e3a2621db2e7eba36e1e0ecdc095107c50b0de
 :::
 
 # Dataset
@@ -53,7 +61,11 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 ::: callout
 ### Your answer is here
 
+<<<<<<< HEAD
 -   `ggplot2::msleep`
+=======
+xxxxxxxxxxxxxx
+>>>>>>> 67e3a2621db2e7eba36e1e0ecdc095107c50b0de
 :::
 
 ### Introduction
@@ -62,6 +74,7 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 [What is the dataset about? What variables are included in the data? How was the data taken/measured?]{style="color:darkred; font-weight:bold;"}
 :::
 
+<<<<<<< HEAD
 :::: callout
 ### Your answer is here
 
@@ -81,6 +94,13 @@ The data in `msleep` is a **compiled dataset**, meaning it wasn't collected in a
 Additional variables order, conservation status and vore were added from wikipedia.
 :::
 ::::
+=======
+::: callout
+### Your answer is here
+
+xxxxxxxxxxxxxx
+:::
+>>>>>>> 67e3a2621db2e7eba36e1e0ecdc095107c50b0de
 
 ### Interactive plot(s) using `plotly`
 
@@ -110,6 +130,7 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 
 ```{r}
 #| echo: true
+<<<<<<< HEAD
 library(ggplot2)
 
 # View the first 6 rows
@@ -125,6 +146,12 @@ str(msleep)
 #| echo: true
 
 ```
+=======
+# YOUR CODE HERE
+# xxxxx
+```
+
+>>>>>>> 67e3a2621db2e7eba36e1e0ecdc095107c50b0de
 ### Animation using `gganimate`
 
 ::: callout-important
@@ -150,5 +177,9 @@ xxxxxxxxxxxxxx
 :::
 
 ```{r}
+<<<<<<< HEAD
 
+=======
+# YOUR CODE HERE
+# xxxxx
 ```
