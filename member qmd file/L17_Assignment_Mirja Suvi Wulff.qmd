@@ -14,7 +14,7 @@ execute:
 
 # Name
 
-[**Name**]{style="color:red"}**: XXXXXX**
+[**Name**]{style="color:red"}**: Mirja Suvi Wulff**
 
 # Generative AI declaration
 
@@ -53,7 +53,7 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+I chose the `palmerpenguins::penguins`dataset.
 :::
 
 ### Introduction
@@ -65,7 +65,20 @@ xxxxxxxxxxxxxx
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+The `palmerpenguins::penguins` dataset contains size measurements for three penguin species (Adelie, Chinstrap, and Gentoo) observed on three islands (Biscoe, Dream, and Torgersen) in the Palmer Archipelago, Antarctica. The data were collected from 2007 to 2009 by Dr. Kristen Gorman and the Palmer Station Antarctica (LTER) program.
+
+The dataset includes the following variables:
+
+-   **species**: penguin species (Adelie, Chinstrap, Gentoo)
+-   **island**: island in the Palmer Archipelago (Biscoe, Dream, Torgersen)
+-   **bill_length_mm**: bill length in millimeters
+-   **bill_depth_mm**: bill depth in millimeters
+-   **flipper_length_mm**: flipper length in millimeters
+-   **body_mass_g**: body mass in grams
+-   **sex**: penguin sex (male, female)
+-   **year**: year of observation (2007, 2008, 2009)
+
+The measurements were taken during field work where researchers physically captured and measured the penguins. The dataset has 344 rows (individual penguins) with some missing values.
 :::
 
 ### Interactive plot(s) using `plotly`
