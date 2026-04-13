@@ -193,7 +193,19 @@ ggplotly(g2)
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+I chose `transition_states()` to animate a scatter plot of flipper length vs. body mass, transitioning between the three penguin species. This animation type splits the data by species and animates between the different states, which is good for comparing how the relationship between flipper length and body mass differs across species.
+
+**Strengths:**
+
+-   The animation shows how each species occupies a different region of the flipper length vs. body mass space, making the species differences more memorable than a static plot.
+-   The `enter_fade()` and `exit_fade()` transitions create smooth, visually appealing transitions that make it easy to track how the data shifts between species.
+-   The title label (`{closest_state}`) clearly indicates which species is currently displayed.
+
+**Weaknesses:**
+
+-   The viewer can only see one species at a time, making direct side-by-side comparison harder than in a static plot.
+-   The animation requires the viewer to wait through the full cycle to see all three species, which can be slower than looking at a static plot.
+-   If the animation loops too fast, viewers may miss details.
 :::
 
 Note: At least one animation is required, but multiple animations are allowed
@@ -205,10 +217,34 @@ Note: At least one animation is required, but multiple animations are allowed
 ::: callout
 ### Your answer is here
 
-xxxxxxxxxxxxxx
+The purpose of this animation is to show that each penguin species has a distinct relationship between flipper length and body mass. Gentoo penguins are the largest (longest flippers and heaviest), Chinstrap penguins are medium, and Adelie penguins are the smallest. By animating through species one at a time, the viewer can clearly see how the data shifts position, making the size differences between species obvious. The animation has a clear advantage over a static plot because the sequential movement helps the viewer focus on one species at a time and notice the shift in the data distribution, rather than being seeing all three overlapping groups at once.
 :::
 
 ```{r}
-# YOUR CODE HERE
-# xxxxx
+#Load libraries for animation
+library(gganimate); packageVersion("gganimate")
+
+#Remove rows with missing values for the variables we need
+penguins_anim <- penguins %>%
+  drop_na(flipper_length_mm, body_mass_g, species)
+
+#Create a static ggplot: flipper length vs. body mass, colored by species
+p_anim <- ggplot(penguins_anim,
+                 aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(title = "Species: {closest_state}",
+       x = "Flipper Length (mm)",
+       y = "Body Mass (g)",
+       colour = "Species") +
+  #Add gganimate: transition between species
+  transition_states(species,
+                    transition_length = 2,
+                    state_length = 1) +
+  enter_fade() +
+  exit_fade() +
+  ease_aes("cubic-in-out") +
+  NULL
+
+#Render the animation with specified dimensions
+animate(p_anim, width = 600, height = 400, res = 100, nframes = 100, fps = 10)
 ```
