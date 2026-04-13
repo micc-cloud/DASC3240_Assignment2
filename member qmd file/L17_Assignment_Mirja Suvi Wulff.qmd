@@ -120,14 +120,37 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 
 ```{r}
 #| echo: true
-# Load libraries
+#Load libraries
 library(tidyverse); packageVersion("tidyverse")
 library(plotly); packageVersion("plotly")
 library(palmerpenguins); packageVersion("palmerpenguins")
 
-# Load and check the data
+#Load and check the data
 data(penguins)
 head(penguins)
+```
+
+```{r}
+#| echo: true
+
+#Plot 1: Interactive scatter plot of bill length vs. bill depth
+
+#Remove rows with missing values for the variables we need
+penguins_clean <- penguins %>%
+  drop_na(bill_length_mm, bill_depth_mm, species)
+
+#Create ggplot scatter plot: bill length vs. bill depth, coloured by species
+g1 <- ggplot(penguins_clean,
+             aes(x = bill_length_mm, y = bill_depth_mm, color = species)) + #Declaring x and y variable and the colour separation
+  geom_point(alpha = 0.7, size = 2) +
+  labs(title = "Penguin Bill Shape by Species",
+       x = "Bill Length (mm)",
+       y = "Bill Depth (mm)",
+       color = "Species") +
+  NULL
+
+#Convert to interactive plotly figure
+ggplotly(g1)
 ```
 
 ### Animation using `gganimate`
