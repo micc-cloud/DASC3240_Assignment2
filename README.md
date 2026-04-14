@@ -3,7 +3,7 @@
 - 20964379 Lam Ching Yin (Leader & Owner)
 - 21335771 Mirja Suvi Wulff
 - 21057381 Xu Zijian
-- xxxx xxxx
+- 21064932 Chan Chi Him
 - xxxx xxxx
 # Dataset
 Each group member may choose either of the following dataset:
