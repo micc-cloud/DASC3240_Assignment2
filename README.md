@@ -22,5 +22,14 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 # Introduction
 - <span style="color:darkred;">**Please describe the structure of this
 repository. Who are members? Who is the leader and who contributed the
-overall structure of this report and how?**</span>
+overall structure of this report and how?
+
+The repository is organized to handle multiple contributors while keeping the final report structured. The core structure includes:
+
+Root Directory: Contains standard configuration files like .gitignore, the .Rproj file, and a README.md which serves as the landing page for the project.
+
+member qmd file/ Folder: This is the primary workspace. It contains individual Quarto (.qmd) files for each team member.
+
+Output Files: The rendered .html reports and .gif animations generated from the code chunks are stored here.
+
 xxxxx
