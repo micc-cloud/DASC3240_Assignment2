@@ -1,0 +1,213 @@
+---
+title: "Assignment II: Group [C]"
+author: "XuZijian"
+format: 
+  html:
+    toc: true
+    code-fold: false
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Name
+
+[**XuZijian**]{style="color:red"}**: 21057381**
+
+# Generative AI declaration
+
+Students may use generative AI tools during assignment, for example, to check and improve code, provided that the content is original and reflects the student's own contributions. If generative AI is used, students must declare its use in the box below. An example statement is: "During the assignment, I used [XXXX] to [XXXX]. I subsequently reviewed and edited the code and take full responsibility for the final version of the code."
+
+::: callout
+During the assignment, I used ChatGPT to help me refine my ideas, improve the wording of some explanations, and organize my R code more clearly. I reviewed and edited the final work by myself and take full responsibility for the submitted version.
+:::
+
+# Dataset
+
+Each group member may choose either of the following dataset:
+
+**Built-in dataset**
+
+- `palmerpenguins::penguins`
+- `ggplot2::msleep`
+- `ggplot2::midwest`
+- `datasets::quakes`
+
+**Public dataset**
+
+BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
+
+- `BIOTIME_raw_data_192.csv` (uploaded on Canvas)
+- `BIOTIME_raw_data_232.csv` (uploaded on Canvas)
+
+# Figures by each group member
+
+### Dataset
+
+::: callout-important
+[Which dataset did you choose?]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+I chose the built-in dataset `ggplot2::midwest`.
+:::
+
+### Introduction
+
+::: callout-important
+[What is the dataset about? What variables are included in the data? How was the data taken/measured?]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+The `midwest` dataset contains demographic and socioeconomic information for counties in the American Midwest. Each row represents one county. The dataset includes variables such as total population, land area, population density, percentage of different racial groups, education level, poverty level, and whether the county is in a metropolitan area.
+
+In this report, I mainly focus on `county`, `state`, `poptotal`, `popdensity`, `percollege`, `percbelowpoverty`, and `inmetro`. These variables are useful because they help show the relationship between education, poverty, and urbanization across counties.
+
+This is a built-in dataset in `ggplot2`, so it is mainly prepared for teaching and data visualization practice. For my analysis, I want to see whether counties with a higher percentage of college education also tend to have lower poverty rates, and whether this pattern looks different between metro and non-metro counties.
+:::
+
+### Interactive plot(s) using `plotly`
+
+::: callout-important
+[Please explain which plot type you choose and why. Also, please discuss the strengths and weaknesses of your plot(s).]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+I used an interactive scatter plot because both `percollege` and `percbelowpoverty` are continuous variables, so a scatter plot is a simple and clear way to show their relationship. I used color to separate metro and non-metro counties, and I used point size to represent total population. I then converted the figure to `plotly` so that readers can move the cursor over each point and see more detailed information about each county.
+
+One strength of this plot is that it shows several things at the same time, including the general relationship between education and poverty, the difference between county types, and the relative population size. The interactive tooltip is also helpful because it lets the reader inspect specific counties and notice unusual points more easily. However, there are still some limitations. Since there are many counties, some points overlap with each other. Also, this plot only shows a relationship between variables, so it does not mean that education directly causes lower poverty.
+:::
+
+Note: At least one plot is required, but multiple plots are allowed
+
+::: callout-important
+[What is the purpose of this visualization?]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+The purpose of this visualization is to show whether counties with higher college education levels tend to have lower poverty rates, and to compare this pattern between metropolitan and non-metropolitan counties. The interactive format also helps readers explore individual counties in more detail.
+:::
+
+```{r}
+#| echo: true
+
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(gganimate)
+library(gifski)
+
+# Load the built-in dataset from ggplot2.
+data("midwest", package = "ggplot2")
+
+# Clean and relabel variables for clearer presentation in the figures.
+midwest2 <- midwest %>%
+  mutate(
+    county = str_to_title(county),
+    metro_status = factor(inmetro, levels = c(0, 1), labels = c("Non-metro", "Metro"))
+  )
+
+# Build a scatter plot to examine the relationship between college education
+# and poverty, while also showing population size and metro status.
+p_interactive <- ggplot(
+  midwest2,
+  aes(
+    x = percollege,
+    y = percbelowpoverty,
+    color = metro_status,
+    size = poptotal,
+    text = paste0(
+      "County: ", county,
+      "<br>State: ", state,
+      "<br>Metro status: ", metro_status,
+      "<br>College education (%): ", round(percollege, 1),
+      "<br>Below poverty (%): ", round(percbelowpoverty, 1),
+      "<br>Population density: ", round(popdensity, 1)
+    )
+  )
+) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = c("Non-metro" = "#1b9e77", "Metro" = "#d95f02")) +
+  scale_size_continuous(range = c(2, 12)) +
+  labs(
+    title = "Education and Poverty Across Midwest Counties",
+    subtitle = "Point size shows total population; color shows metro status",
+    x = "Percent with College Education",
+    y = "Percent Below Poverty",
+    color = "County Type",
+    size = "Total Population"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  )
+
+ggplotly(p_interactive, tooltip = "text")
+```
+
+### Animation using `gganimate`
+
+::: callout-important
+[Please explain which animation type you choose and why. Also, please discuss the strengths and weaknesses of your animation.]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+I used a state-by-state transition animation with `transition_states()`. Since the `midwest` dataset does not include a time variable, I think a time-based animation would not be suitable here. Instead, showing one state at a time makes more sense, because it allows the reader to compare how the relationship between education and poverty differs across states in the Midwest.
+
+The strength of this animation is that it reduces clutter. If all states are shown together, the figure becomes crowded and harder to read. By moving through the states one by one, the reader can focus more easily on the distribution in each state and notice differences in spread or outliers. At the same time, animation also has weaknesses. It is not the best choice for precise comparison, because readers need to remember what they saw in previous frames. If the animation is too fast, some details may also be missed.
+:::
+
+Note: At least one animation is required, but multiple animations are allowed
+
+::: callout-important
+[What is the purpose of this visualization?]{style="color:darkred; font-weight:bold;"}
+:::
+
+::: callout
+The purpose of this animation is to compare the relationship between college education and poverty across different Midwest states. It helps show that although a similar overall pattern appears in many states, the spread and strength of the relationship are not exactly the same everywhere.
+:::
+
+```{r}
+#| echo: true
+
+# Reuse the cleaned dataset and create a state-by-state animation.
+# This highlights how the education-poverty relationship differs by state.
+p_animation <- ggplot(
+  midwest2,
+  aes(
+    x = percollege,
+    y = percbelowpoverty,
+    color = metro_status,
+    size = poptotal
+  )
+) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = c("Non-metro" = "#1b9e77", "Metro" = "#d95f02")) +
+  scale_size_continuous(range = c(2, 10), guide = "none") +
+  labs(
+    title = "Education and Poverty in {closest_state}",
+    subtitle = "Each frame shows counties from one Midwest state",
+    x = "Percent with College Education",
+    y = "Percent Below Poverty",
+    color = "County Type"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  ) +
+  transition_states(state, transition_length = 2, state_length = 2) +
+  ease_aes("cubic-in-out")
+
+animate(
+  p_animation,
+  nframes = 80,
+  fps = 8,
+  width = 800,
+  height = 500,
+  renderer = gifski_renderer(loop = TRUE)
+)
+```
