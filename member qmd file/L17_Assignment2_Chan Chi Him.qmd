@@ -21,8 +21,7 @@ execute:
 Students may use generative AI tools during assignment, for example, to check and improve code, provided that the content is original and reflects the student's own contributions. If generative AI is used, students must declare its use in the box below. An example statement is: “*During the assignment, I used \[XXXX\] to \[XXXX\]. I subsequently reviewed and edited the code and take(s) full responsibility for the final version of the code.”*
 
 ::: callout
-In this assignment, I use AI to modify my codes, checking whether there are any mistakes and ask it to help me fix the problem. 
-:::
+In this assignment, I use AI to modify my codes, checking whether there are any mistakes and ask it to help me fix the problem. :::
 
 # Dataset
 
@@ -51,8 +50,8 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 :::
 
 ::: callout
-### Your answer is here
-I choose the `datasets::quakes`.
+`datasets::quakes`
+
 
 :::
 
@@ -63,7 +62,6 @@ I choose the `datasets::quakes`.
 :::
 
 ::: callout
-### Your answer is here
 The dataset is about the data recorded from 200 earthquake events. In the dataset, there are five variables, which is the location of latitude and longtitude that the earthquake happens, depth that measures how deep does the earthquake goes, magnitude that means the strength of the earthquake and stations that means the number of different seismic stations that detected and reported the earthquake. 
 :::
 
@@ -83,7 +81,6 @@ For the weakness:
 1. Overcrowding: With 1,000 observations in the full quakes dataset, the markers can overlap, making it hard to see individual points in the middle of the cluster.
 2. Depth Perception: Without rotating the plot, it can be difficult to tell exactly where a point lies in 3D space.
 
-
 :::
 
 Note: At least one plot is required, but multiple plots are allowed
@@ -93,55 +90,41 @@ Note: At least one plot is required, but multiple plots are allowed
 :::
 
 ::: callout
-### Your answer is here
 The primary purpose of this 3D visualization is to reveal the spatial architecture of earthquake activity, specifically identifying the presence of a subduction zone. While a flat map tells you where people felt the ground shake, this 3D plot tells you the geological story of what is happening miles beneath the surface.
+
+xxxxxxxxxxxxxx
 :::
 
 Note: If you want to specify setting for a code chunk, you can use `#|` for each option (for example, `#| echo: true`). Rmarkdown code chunk still works (for example, `{r echo = true}`), but Quarto style is recommended.
 
 ```{r}
 #| echo: true
-# Load the library
-library(plotly)
+# 1. Load the libraries
+library(ggplot2)
+library(gganimate)
+library(viridis)
 
-# 1. Access the built-in dataset
+# 2. Create the plot using the built-in quakes dataset
 df <- datasets::quakes
 
-# 2. Create the interactive 3D plot
-# We use 'marker' to group styling properties like size, color, and line width
-plot_quakes <- plot_ly(data = df, 
-                       x = ~long, 
-                       y = ~lat, 
-                       z = ~depth,
-                       type = "scatter3d", 
-                       mode = "markers",
-                       # Map attributes to the marker specifically
-                       marker = list(
-                         size = ~mag * 1.5,      # Scaling magnitude for better visibility
-                         color = ~depth,         # Mapping color to depth
-                         colorscale = "Viridis", # CORRECTED: Use colorscale for named palettes
-                         showscale = TRUE,       # Adds a color bar for reference
-                         line = list(width = 0)  # CORRECTED: Single value prevents the 'line.width' warning
-                       ),
-                       # Hover text configuration
-                       text = ~paste("Magnitude:", mag, 
-                                     "<br>Depth:", depth, "km",
-                                     "<br>Stations:", stations),
-                       hoverinfo = "text")
+# We use shadow_mark() to "build" the map from shallow to deep
+p <- ggplot(df, aes(x = long, y = lat, color = depth, size = mag)) +
+  geom_point(alpha = 0.6) +
+  # Using 'option = "D"' provides the classic Viridis scale
+  scale_color_viridis_c(option = "D", direction = -1) +
+  theme_minimal() +
+  labs(title = 'Fiji Earthquakes at Depth: {frame_time} km',
+       subtitle = 'Visualizing the descending tectonic plate',
+       x = 'Longitude', y = 'Latitude',
+       color = 'Depth (km)', size = 'Magnitude')
 
-# 3. Refine the layout
-plot_quakes <- plot_quakes %>% layout(
-  title = "3D Mapping of Fiji Earthquakes",
-  scene = list(
-    xaxis = list(title = "Longitude"),
-    yaxis = list(title = "Latitude"),
-    # Reversed because deeper is "down" in the Earth
-    zaxis = list(title = "Depth (km)", autorange = "reversed")
-  )
-)
+# 3. Define the animation transition
+anim <- p + 
+  transition_time(depth) + 
+  shadow_mark(past = TRUE) # Keeps older points visible as the "sink" continues
 
-# 4. Render the plot
-plot_quakes
+# 4. Render the result
+animate(anim, nframes = 100, fps = 10, renderer = gifski_renderer())
 ```
 
 ### Animation using `gganimate`
@@ -151,7 +134,6 @@ plot_quakes
 :::
 
 ::: callout
-### Your answer is here
 I have chosen a Cumulative Point Animation that reveals earthquakes from the surface (shallow) down to the deepest point (680 km). Since instead of showing all 1,000 points at once, animating by depth allows the viewer to see the "shape" of the tectonic plate as it descends. By using shadow_mark(), we leave the previous points on the screen, gradually building a map of the subduction zone. It mimics the geological process of the plate "diving" into the mantle.
 For the strength:
 1. Reduced Cognitive Load: By showing the quakes in stages, the viewer isn't overwhelmed by 1,000 dots simultaneously.
@@ -169,9 +151,7 @@ Note: At least one animation is required, but multiple animations are allowed
 :::
 
 ::: callout
-### Your answer is here
-The purpose of this visualization is to reveal the internal geometry of the Earth, specifically illustrating the subduction process occurring in the Fiji region.
-
+The purpose of this visualization is to reveal the internal geometry of the Earth, specifically illustrating the subduction process occurring in the Fiji region
 While a standard list of numbers tells you how many earthquakes happened, an animated visualization converts those numbers into a geological "story."
 :::
 
