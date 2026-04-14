@@ -4,7 +4,6 @@
 - 21335771 Mirja Suvi Wulff
 - 21057381 Xu Zijian
 - 21064932 Chan Chi Him
-- xxxx xxxx
 # Dataset
 Each group member may choose either of the following dataset:
 **Built-in dataset**
@@ -32,4 +31,3 @@ member qmd file/ Folder: This is the primary workspace. It contains individual Q
 
 Output Files: The rendered .html reports and .gif animations generated from the code chunks are stored here.
 
-xxxxx
