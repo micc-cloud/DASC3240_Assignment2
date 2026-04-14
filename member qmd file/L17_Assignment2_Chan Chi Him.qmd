@@ -51,9 +51,9 @@ BIOTIME (CC0) <https://biotime.st-andrews.ac.uk/usageGuidelines.php>
 :::
 
 ::: callout
-### Your answer is here
+`datasets::quakes`
 
-xxxxxxxxxxxxxx
+
 :::
 
 ### Introduction
@@ -63,9 +63,7 @@ xxxxxxxxxxxxxx
 :::
 
 ::: callout
-### Your answer is here
-
-xxxxxxxxxxxxxx
+The dataset is about the data recorded from 200 earthquake events. In the dataset, there are five variables, which is the location of latitude and longtitude that the earthquake happens, depth that measures how deep does the earthquake goes, magnitude that means the strength of the earthquake and stations that means the number of different seismic stations that detected and reported the earthquake. 
 :::
 
 ### Interactive plot(s) using `plotly`
@@ -75,9 +73,15 @@ xxxxxxxxxxxxxx
 :::
 
 ::: callout
-### Your answer is here
+In the Fiji region (where this data originates), the Pacific Plate is subducting under the Australian Plate. A 2D map would only show a cluster of dots; a 3D plot allows you to see the angle of the subduction zone as the earthquakes get deeper the further they move from the fault line.
+For the strengths:
+1. Visualizes the Subduction Slab: By reversing the Z-axis, it mimics the real-world Earth interior.
+2. Multivariate Depth: Using a color gradient (e.g., Viridis) makes it immediately obvious which quakes are shallow (crust) versus deep (mantle).
 
-xxxxxxxxxxxxxx
+For the weakness:
+1. Overcrowding: With 1,000 observations in the full quakes dataset, the markers can overlap, making it hard to see individual points in the middle of the cluster.
+2. Depth Perception: Without rotating the plot, it can be difficult to tell exactly where a point lies in 3D space.
+
 :::
 
 Note: At least one plot is required, but multiple plots are allowed
@@ -87,7 +91,7 @@ Note: At least one plot is required, but multiple plots are allowed
 :::
 
 ::: callout
-### Your answer is here
+The primary purpose of this 3D visualization is to reveal the spatial architecture of earthquake activity, specifically identifying the presence of a subduction zone. While a flat map tells you where people felt the ground shake, this 3D plot tells you the geological story of what is happening miles beneath the surface.
 
 xxxxxxxxxxxxxx
 :::
@@ -96,8 +100,32 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 
 ```{r}
 #| echo: true
-# YOUR CODE HERE
-# xxxxx
+# 1. Load the libraries
+library(ggplot2)
+library(gganimate)
+library(viridis)
+
+# 2. Create the plot using the built-in quakes dataset
+df <- datasets::quakes
+
+# We use shadow_mark() to "build" the map from shallow to deep
+p <- ggplot(df, aes(x = long, y = lat, color = depth, size = mag)) +
+  geom_point(alpha = 0.6) +
+  # Using 'option = "D"' provides the classic Viridis scale
+  scale_color_viridis_c(option = "D", direction = -1) +
+  theme_minimal() +
+  labs(title = 'Fiji Earthquakes at Depth: {frame_time} km',
+       subtitle = 'Visualizing the descending tectonic plate',
+       x = 'Longitude', y = 'Latitude',
+       color = 'Depth (km)', size = 'Magnitude')
+
+# 3. Define the animation transition
+anim <- p + 
+  transition_time(depth) + 
+  shadow_mark(past = TRUE) # Keeps older points visible as the "sink" continues
+
+# 4. Render the result
+animate(anim, nframes = 100, fps = 10, renderer = gifski_renderer())
 ```
 
 ### Animation using `gganimate`
@@ -107,9 +135,14 @@ Note: If you want to specify setting for a code chunk, you can use `#|` for each
 :::
 
 ::: callout
-### Your answer is here
+I have chosen a Cumulative Point Animation that reveals earthquakes from the surface (shallow) down to the deepest point (680 km). Since instead of showing all 1,000 points at once, animating by depth allows the viewer to see the "shape" of the tectonic plate as it descends. By using shadow_mark(), we leave the previous points on the screen, gradually building a map of the subduction zone. It mimics the geological process of the plate "diving" into the mantle.
+For the strength:
+1. Reduced Cognitive Load: By showing the quakes in stages, the viewer isn't overwhelmed by 1,000 dots simultaneously.
+2. Narrative Flow: It tells a story of depth. You can clearly see that shallow quakes cover a wider area, while deep quakes are concentrated in a specific linear "trench" or slab.
 
-xxxxxxxxxxxxxx
+For the weakness:
+1. Loss of 3D Perspective: Unlike the plotly version, gganimate produces a 2D file (GIF/MP4). We lose the ability to rotate the plot.
+2. File Size: High-quality GIFs with 1,000 points and many frames can be large and slow to render.
 :::
 
 Note: At least one animation is required, but multiple animations are allowed
@@ -119,12 +152,35 @@ Note: At least one animation is required, but multiple animations are allowed
 :::
 
 ::: callout
-### Your answer is here
-
-xxxxxxxxxxxxxx
+The purpose of this visualization is to reveal the internal geometry of the Earth, specifically illustrating the subduction process occurring in the Fiji region
+While a standard list of numbers tells you how many earthquakes happened, an animated visualization converts those numbers into a geological "story."
 :::
 
 ```{r}
-# YOUR CODE HERE
-# xxxxx
+# 1. Load the libraries
+library(ggplot2)
+library(gganimate)
+library(viridis)
+
+# 2. Create the plot using the built-in quakes dataset
+df <- datasets::quakes
+
+# We use shadow_mark() to "build" the map from shallow to deep
+p <- ggplot(df, aes(x = long, y = lat, color = depth, size = mag)) +
+  geom_point(alpha = 0.6) +
+  # Using 'option = "D"' provides the classic Viridis scale
+  scale_color_viridis_c(option = "D", direction = -1) +
+  theme_minimal() +
+  labs(title = 'Fiji Earthquakes at Depth: {frame_time} km',
+       subtitle = 'Visualizing the descending tectonic plate',
+       x = 'Longitude', y = 'Latitude',
+       color = 'Depth (km)', size = 'Magnitude')
+
+# 3. Define the animation transition
+anim <- p + 
+  transition_time(depth) + 
+  shadow_mark(past = TRUE) # Keeps older points visible as the "sink" continues
+
+# 4. Render the result
+animate(anim, nframes = 100, fps = 10, renderer = gifski_renderer())
 ```
